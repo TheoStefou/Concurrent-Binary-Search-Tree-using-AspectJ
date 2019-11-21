@@ -56,9 +56,7 @@ public aspect LockAspect {
 
 	pointcut reader(BinarySearchTree b): target(b) && call(* BinarySearchTree.lookup(*));
 
-	pointcut writer(BinarySearchTree b) : 	target(b)
-										&& (call(* BinarySearchTree.insert(*))
-										|| 	call(* BinarySearchTree.remove(*)));
+	pointcut writer(BinarySearchTree b) : target(b) && (call(* BinarySearchTree.insert(*)) || call(* BinarySearchTree.remove(*)));
 
 
 	before(BinarySearchTree b) : reader(b) {
