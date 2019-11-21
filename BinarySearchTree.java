@@ -9,9 +9,6 @@ public class BinarySearchTree {
 
 	public boolean insert(Integer i) {
 
-		System.out.println("A write is happening...");
-		try {Thread.sleep(1000);} catch(InterruptedException e) {System.out.println(e);}
-
 		if(root == null) {
 			root = new BinarySearchTreeNode(i);
 			return true;
@@ -53,8 +50,7 @@ public class BinarySearchTree {
 	}
 
 	public boolean lookup(Integer i) {
-		System.out.println("A read is happening...");
-		try {Thread.sleep(1000);} catch(InterruptedException e) {System.out.println(e);}
+
 		BinarySearchTreeNode tmp = root;
 
 		while(tmp != null) {
@@ -73,9 +69,6 @@ public class BinarySearchTree {
 	}
 
 	public Integer remove(Integer i) {
-
-		System.out.println("A write is happening...");
-		try {Thread.sleep(1000);} catch(InterruptedException e) {System.out.println(e);}
 
 		if(root == null)
 			return null;
@@ -196,26 +189,7 @@ public class BinarySearchTree {
 
 		//Never executes but compiler will complain otherwise
 		return null;
-	}
-
-	
-	public void printInOrder() {
-		System.out.println("---Inorder print---");
-		printInOrderRec(root);
-		System.out.println("-------------------");
-
-	}
-
-	private void printInOrderRec(BinarySearchTreeNode e) {
-		if(e == null)
-			return;
-
-		printInOrderRec(e.left);
-		System.out.println(e.data);
-		printInOrderRec(e.right);
-
-	}
-	
+	}	
 }
 
 class BinarySearchTreeNode {

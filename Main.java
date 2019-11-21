@@ -16,21 +16,21 @@ class Test extends Thread {
 		Random random = new Random();
 		for(int i = 0; i < 10; i++) {
 			int action = random.nextInt(3);
-			if(action <= 1) {
+			if(action == 0) {
 				//Perform a lookup
 				//System.out.println("Lookup..."+Thread.currentThread().getName());
 				this.btree.lookup(random.nextInt(2000));
 			}
-			else{
+			else if(action == 1){
 				//Perform an insertion
 				//System.out.println("Insert..."+Thread.currentThread().getName());
 				this.btree.insert(random.nextInt(2000));
 			}
-			// else { //action == 2
-			// 	//Perform a deletion
-			// 	//System.out.println("Remove..."+Thread.currentThread().getName());
-			// 	this.btree.remove(random.nextInt(2000));
-			// }
+			else { //action == 2
+				//Perform a deletion
+				//System.out.println("Remove..."+Thread.currentThread().getName());
+				this.btree.remove(random.nextInt(2000));
+			}
 
 		}
 
@@ -65,7 +65,5 @@ public class Main {
 				System.out.println(e);
 			} 
 		}
-
-		 //b.printInOrder();
     }
 }
