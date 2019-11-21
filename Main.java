@@ -42,9 +42,6 @@ public class Main {
     public static void main(String[] args) {
 	
 		BinarySearchTree b = new BinarySearchTree();
-		b = new BinarySearchTree();
-		b = new BinarySearchTree();
-		b = new BinarySearchTree();
 
 		ArrayList<Test> L = new ArrayList<Test>();
 		//Create 4 threads
