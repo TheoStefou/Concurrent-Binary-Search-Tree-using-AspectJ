@@ -39,19 +39,13 @@ class CSRW { //Critical Section Readers Writers
 	}
 }
 
-public aspect LockAspect {
+public aspect LockAspect pertarget(reader(BinarySearchTree) || writer(BinarySearchTree)){
     
 
-	LinkedHashMap<BinarySearchTree, CSRW> CSMap;
+	CSRW locks;
 
 	public LockAspect() {
-		CSMap = new LinkedHashMap<BinarySearchTree, CSRW>();
-	}
-
-	Object around() : call(BinarySearchTree.new()) {
-		Object o = proceed();
-		CSMap.put((BinarySearchTree)o, new CSRW());
-		return o;
+		locks = new CSRW();;
 	}
 
 	pointcut reader(BinarySearchTree b): target(b) && call(* BinarySearchTree.lookup(*));
@@ -61,26 +55,25 @@ public aspect LockAspect {
 
 	before(BinarySearchTree b) : reader(b) {
 
-		CSRW c = CSMap.get(b);
-		c.enterReader();
+		locks.enterReader();
+		System.out.println("Reader entering for: "+b);
 	}
 
 	after(BinarySearchTree b) : reader(b) {
 
-		CSRW c = CSMap.get(b);
-		c.exitReader();
+		locks.exitReader();
 	}
 
 	
 
 	before(BinarySearchTree b) : writer(b) {
 
-		CSRW c = CSMap.get(b);
-		c.enterWriter();
+		locks.enterWriter();
+		System.out.println("Writer entering for: "+b);
 	}
 
 	after(BinarySearchTree b) : writer(b) {
-		CSRW c = CSMap.get(b);
-		c.exitWriter();
+		
+		locks.exitWriter();
 	}
 }

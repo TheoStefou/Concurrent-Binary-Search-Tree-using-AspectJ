@@ -9,6 +9,13 @@ public class BinarySearchTree {
 
 	public boolean insert(Integer i) {
 
+		try {
+			Thread.sleep(500);
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+
 		if(root == null) {
 			root = new BinarySearchTreeNode(i);
 			return true;
@@ -51,6 +58,13 @@ public class BinarySearchTree {
 
 	public boolean lookup(Integer i) {
 
+		try {
+			Thread.sleep(500);
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+
 		BinarySearchTreeNode tmp = root;
 
 		while(tmp != null) {
@@ -69,6 +83,13 @@ public class BinarySearchTree {
 	}
 
 	public Integer remove(Integer i) {
+
+		try {
+			Thread.sleep(500);
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
 
 		if(root == null)
 			return null;
