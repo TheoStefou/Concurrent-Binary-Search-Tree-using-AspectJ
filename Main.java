@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 class Test extends Thread {
 
-	BinarySearchTree btree;
+	BinarySearchTree<Integer> btree;
 
-	public Test(String name, BinarySearchTree btree) {
+	public Test(String name, BinarySearchTree<Integer> btree) {
 		super(name);
 		this.btree = btree;
 	}
@@ -14,22 +14,18 @@ class Test extends Thread {
 	public void run() {
 
 		Random random = new Random();
-		for(int i = 0; i < 10; i++) {
-			int action = 0;//random.nextInt(3);
-			if(action == 0) {
-				//Perform a lookup
-				//System.out.println("Lookup..."+Thread.currentThread().getName());
-				this.btree.lookup(random.nextInt(2000));
+		for(int i = 0; i < 5; i++) {
+			
+			int action = random.nextInt(5);
+			//Give readers more chances to spawn so that it is clear that many may enter at once
+			if(action <= 2) {
+				btree.lookup(random.nextInt(10));
 			}
-			else if(action == 1){
-				//Perform an insertion
-				//System.out.println("Insert..."+Thread.currentThread().getName());
-				this.btree.insert(random.nextInt(2000));
+			else if(action == 3){
+				btree.insert(random.nextInt(10));
 			}
-			else { //action == 2
-				//Perform a deletion
-				//System.out.println("Remove..."+Thread.currentThread().getName());
-				this.btree.remove(random.nextInt(2000));
+			else { //action == 4
+				btree.remove(random.nextInt(10));
 			}
 
 		}
@@ -38,25 +34,26 @@ class Test extends Thread {
 }
 
 public class Main {
-    
+
     public static void main(String[] args) {
 	
-		BinarySearchTree b1 = new BinarySearchTree();
-
-		BinarySearchTree b2 = new BinarySearchTree();
+		//Create new trees
+		BinarySearchTree<Integer> b1 = new BinarySearchTree<Integer>();
+		BinarySearchTree<Integer> b2 = new BinarySearchTree<Integer>();
 
 		ArrayList<Test> L1 = new ArrayList<Test>();
-		//Create 4 threads
+		//Create 4 threads that will run on the first tree
 		for(int i = 0; i < 4; i++) {
 			L1.add(new Test("Thread #"+Integer.toString(i), b1));
 		}
 
 		ArrayList<Test> L2 = new ArrayList<Test>();
-		//Create 4 threads
+		//Create 4 threads that will run on the second tree
 		for(int i = 4; i < 8; i++) {
 			L2.add(new Test("Thread #"+Integer.toString(i), b2));
 		}
-		//Have at it boys
+
+		//Start all 8 threads
 		for(Test t: L1)
 			t.start();
 

@@ -48,15 +48,15 @@ public aspect LockAspect pertarget(reader(BinarySearchTree) || writer(BinarySear
 		locks = new CSRW();;
 	}
 
-	pointcut reader(BinarySearchTree b): target(b) && call(* BinarySearchTree.lookup(*));
+	pointcut reader(BinarySearchTree b):  target(b) && execution(* BinarySearchTree.lookup(*));
 
-	pointcut writer(BinarySearchTree b) : target(b) && (call(* BinarySearchTree.insert(*)) || call(* BinarySearchTree.remove(*)));
+	pointcut writer(BinarySearchTree b) :  target(b) && (execution(* BinarySearchTree.insert(*)) || execution(* BinarySearchTree.remove(*)));
 
 
 	before(BinarySearchTree b) : reader(b) {
 
 		locks.enterReader();
-		System.out.println("Reader entering for: "+b);
+		System.out.println("Reader entering for:"+b);
 	}
 
 	after(BinarySearchTree b) : reader(b) {
@@ -69,7 +69,7 @@ public aspect LockAspect pertarget(reader(BinarySearchTree) || writer(BinarySear
 	before(BinarySearchTree b) : writer(b) {
 
 		locks.enterWriter();
-		System.out.println("Writer entering for: "+b);
+		System.out.println("Writer entering for:"+b);
 	}
 
 	after(BinarySearchTree b) : writer(b) {

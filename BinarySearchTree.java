@@ -1,13 +1,13 @@
 //This BST is thread safe, as long as it is compiled and run with LockAspect.aj
-public class BinarySearchTree {
+public class BinarySearchTree <E extends Comparable<E>>{
 
-	BinarySearchTreeNode root;
+	BinarySearchTreeNode<E> root;
 
 	public BinarySearchTree() {
 		root = null;
 	}
 
-	public boolean insert(Integer i) {
+	public boolean insert(E i) {
 
 		try {
 			Thread.sleep(500);
@@ -17,16 +17,16 @@ public class BinarySearchTree {
 		}
 
 		if(root == null) {
-			root = new BinarySearchTreeNode(i);
+			root = new BinarySearchTreeNode<E>(i);
 			return true;
 		}
 
-		BinarySearchTreeNode tmp = root;
+		BinarySearchTreeNode<E> tmp = root;
 
 		int cmp;
 		do {
 
-			cmp = i - tmp.data;
+			cmp = i.compareTo(tmp.data);//i - tmp.data;
 			if(cmp < 0) {
 				if(tmp.left != null) {
 					tmp = tmp.left;
@@ -46,17 +46,17 @@ public class BinarySearchTree {
 		} while(true);
 
 		if(cmp < 0) {
-			tmp.left = new BinarySearchTreeNode(i);
+			tmp.left = new BinarySearchTreeNode<E>(i);
 		}
 		else{ //Will always be cmp > 0. If cmp was ever zero we would have returned in the loop above.
-			tmp.right = new BinarySearchTreeNode(i);
+			tmp.right = new BinarySearchTreeNode<E>(i);
 		}
 
 		return true;
 
 	}
 
-	public boolean lookup(Integer i) {
+	public boolean lookup(E i) {
 
 		try {
 			Thread.sleep(500);
@@ -65,10 +65,10 @@ public class BinarySearchTree {
 			System.out.println(e);
 		}
 
-		BinarySearchTreeNode tmp = root;
+		BinarySearchTreeNode<E> tmp = root;
 
 		while(tmp != null) {
-			int cmp = i - tmp.data;
+			int cmp = cmp = i.compareTo(tmp.data);//i - tmp.data;
 
 			if(cmp < 0) {
 				tmp = tmp.left;
@@ -82,7 +82,7 @@ public class BinarySearchTree {
 		
 	}
 
-	public Integer remove(Integer i) {
+	public E remove(E i) {
 
 		try {
 			Thread.sleep(500);
@@ -94,12 +94,12 @@ public class BinarySearchTree {
 		if(root == null)
 			return null;
 
-		BinarySearchTreeNode tmp = root;
-		BinarySearchTreeNode parent = null;
+		BinarySearchTreeNode<E> tmp = root;
+		BinarySearchTreeNode<E> parent = null;
 		int cameFrom = -1; //Parent has child in left = 0 or right = 1
 		
 		while(tmp.data != i) {
-			int cmp = i - tmp.data;
+			int cmp = cmp = i.compareTo(tmp.data);//i - tmp.data;
 			if(cmp < 0) {
 				
 				if(tmp.left == null)
@@ -159,17 +159,17 @@ public class BinarySearchTree {
 		//tmp = node to be deleted: has exactly one child
 		if(num_children == 1) {
 
-			Integer valueRemoved;
+			E valueRemoved;
 
 			if(tmp.left != null) {
-				BinarySearchTreeNode child = tmp.left;
+				BinarySearchTreeNode<E> child = tmp.left;
 				valueRemoved = tmp.data;
 				tmp.data = child.data;
 				tmp.left = child.left;
 				tmp.right = child.right;
 			}
 			else { //tmp.right != null
-				BinarySearchTreeNode child = tmp.right;
+				BinarySearchTreeNode<E> child = tmp.right;
 				valueRemoved = tmp.data;
 				tmp.data = child.data;
 				tmp.left = child.left;
@@ -182,9 +182,9 @@ public class BinarySearchTree {
 		if(num_children == 2) {
 			//Go right once, then left until you find a leaf node
 			//Replace tmp with that leaf node.
-			Integer valueRemoved = tmp.data;
-			BinarySearchTreeNode tmpParent = null;
-			BinarySearchTreeNode tmpTwoChildren = tmp.right;
+			E valueRemoved = tmp.data;
+			BinarySearchTreeNode<E> tmpParent = null;
+			BinarySearchTreeNode<E> tmpTwoChildren = tmp.right;
 
 			while(tmpTwoChildren.left != null) {
 				tmpParent = tmpTwoChildren;
@@ -210,14 +210,14 @@ public class BinarySearchTree {
 
 		//Never executes but compiler will complain otherwise
 		return null;
-	}	
+	}
 }
 
-class BinarySearchTreeNode {
-	public Integer data;
-	public BinarySearchTreeNode left;
-	public BinarySearchTreeNode right;
-	public BinarySearchTreeNode(Integer data) {
+class BinarySearchTreeNode<E> {
+	public E data;
+	public BinarySearchTreeNode<E> left;
+	public BinarySearchTreeNode<E> right;
+	public BinarySearchTreeNode(E data) {
 		this.data = data;
 	}
 }
