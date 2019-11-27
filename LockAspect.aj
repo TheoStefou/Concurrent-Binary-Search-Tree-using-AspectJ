@@ -61,6 +61,13 @@ public aspect LockAspect pertarget(reader(BinarySearchTree) || writer(BinarySear
 
 	after(BinarySearchTree b) : reader(b) {
 
+		//This is for testing purposes, you may comment it out
+		try {
+			Thread.sleep(500);
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
 		locks.exitReader();
 	}
 
@@ -74,6 +81,13 @@ public aspect LockAspect pertarget(reader(BinarySearchTree) || writer(BinarySear
 
 	after(BinarySearchTree b) : writer(b) {
 		
+		//This is for testing purposes, you may comment it out
+		try {
+			Thread.sleep(500);
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
 		locks.exitWriter();
 	}
 }

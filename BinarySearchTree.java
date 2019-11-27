@@ -9,13 +9,6 @@ public class BinarySearchTree <E extends Comparable<E>>{
 
 	public boolean insert(E i) {
 
-		try {
-			Thread.sleep(500);
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
-
 		if(root == null) {
 			root = new BinarySearchTreeNode<E>(i);
 			return true;
@@ -58,13 +51,6 @@ public class BinarySearchTree <E extends Comparable<E>>{
 
 	public boolean lookup(E i) {
 
-		try {
-			Thread.sleep(500);
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
-
 		BinarySearchTreeNode<E> tmp = root;
 
 		while(tmp != null) {
@@ -83,13 +69,6 @@ public class BinarySearchTree <E extends Comparable<E>>{
 	}
 
 	public E remove(E i) {
-
-		try {
-			Thread.sleep(500);
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
 
 		if(root == null)
 			return null;
