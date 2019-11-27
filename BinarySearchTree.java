@@ -192,7 +192,7 @@ public class BinarySearchTree <E extends Comparable<E>>{
 	}
 }
 
-class BinarySearchTreeNode<E> {
+class BinarySearchTreeNode<E extends Comparable<E>> {
 	public E data;
 	public BinarySearchTreeNode<E> left;
 	public BinarySearchTreeNode<E> right;
